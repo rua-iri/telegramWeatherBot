@@ -1,5 +1,5 @@
 # telegramWeatherBot
 A bot for obtaining short term weather reports from multiple sources
 
-![_6b9803cc-8ed3-4504-b6e1-57ea9ac93958](https://github.com/rua-iri/telegramWeatherBot/assets/117874491/9d9a8b56-6c05-4215-a8fc-5f5f403f020e)
+![_2b449a11-86a5-421a-9d44-2bc44403fd55](https://github.com/rua-iri/telegramWeatherBot/assets/117874491/358d0708-1ff9-4aed-a723-c9c465654a71)
 
