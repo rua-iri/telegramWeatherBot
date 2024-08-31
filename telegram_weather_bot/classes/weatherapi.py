@@ -6,29 +6,32 @@ import constants
 
 class WeatherAPI(Base_API):
 
-    def __init__(self, latitude: int, longitude: int):
+    def __init__(self, latitude: float, longitude: float):
         data = self.fetch_api_data(latitude=latitude, longitude=longitude)
+        location_data = data.get('location')
+        current_data = data.get('current')
 
-        self.location = f"{data['location'].get('name')}, "
-        self.location += f"{data['location'].get('region')}, "
-        self.location += f"{data['location'].get('country')}"
+        self.location = f"{location_data.get('name')}, "
+        self.location += f"{location_data.get('region')}, "
+        self.location += f"{location_data.get('country')}"
 
-        self.wind = f"{data['current'].get('wind_mph')} mph "
-        self.wind += f"{data['current'].get('wind_dir')}"
+        self.wind = f"{current_data.get('wind_mph')} mph "
+        self.wind += f"{current_data.get('wind_dir')}"
 
-        self.precipitation = f"{data['current'].get('precip_mm')} mm"
+        self.precipitation = f"{current_data.get('precip_mm')} mm"
+        self.humidity = current_data.get('humidity')
 
-        self.condition = data['current'].get('condition').get('text')
-        self.icon = data['current'].get('condition').get('icon')
-        self.temperature = data['current'].get('temp_c')
-        self.feels_like = data['current'].get('feelslike_c')
-        self.humidity = data['current'].get('humidity'),
+        self.condition_text = current_data.get('condition').get('text')
+        self.condition_icon = current_data.get('condition').get('icon')
 
-    def fetch_api_data(self, latitude: int, longitude: int):
+        self.temperature = current_data.get('temp_c')
+        self.feels_like = current_data.get('feelslike_c')
+
+    def fetch_api_data(self, latitude: float, longitude: float):
         try:
             API_KEY_WEATHERAPI = os.getenv("API_KEY_WEATHERAPI")
 
-            req_url = f"{constants.weather_api_base_url}current.json"
+            req_url = constants.WEATHER_API_BASE_URL
             req_url += f"?q={latitude},{longitude}"
             req_url += f"&key={API_KEY_WEATHERAPI}"
 
@@ -42,8 +45,9 @@ class WeatherAPI(Base_API):
         Location: {self.location},
         Wind: {self.wind},
         Precipitation: {self.precipitation},
-        Condition: {self.condition},
+        Humidity: {self.humidity}
+        Condition: {self.condition_text},
+        Icon: {self.condition_icon},
         Temperature: {self.temperature},
         Feels Like: {self.feels_like},
-        Humidity: {self.humidity}
         """

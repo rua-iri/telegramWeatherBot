@@ -1,5 +1,10 @@
 
-weather_api_base_url = "https://api.weatherapi.com/v1/"
+LOGGING_FORMAT = "[%(asctime)s] [%(levelname)s] - %(message)s"
+LOGGING_FILENAME = "logs/{filename}.log"
+LOGGING_SEPARATOR = "-------------------------\n"
+
+
+WEATHER_API_BASE_URL = "https://api.weatherapi.com/v1/current.json"
 
 weather_api_response = """
 WeatherAPI
