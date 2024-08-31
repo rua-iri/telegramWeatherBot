@@ -1,15 +1,15 @@
 
 LOGGING_FORMAT = "[%(asctime)s] [%(levelname)s] - %(message)s"
 LOGGING_FILENAME = "logs/{filename}.log"
-LOGGING_SEPARATOR = "-------------------------\n"
 
+DB_NAME="weather_bot.db"
 
 WEATHER_API_BASE_URL = "https://api.weatherapi.com/v1/current.json"
 
 weather_api_response = """
 WeatherAPI
 Location: {location}
-Conditions: {condition}
+Conditions: {condition_text}
 Temperature: {temperature}°C (Feels Like: {feels_like}°C)
 Wind: {wind}
 Humidity: {humidity}%

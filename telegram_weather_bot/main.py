@@ -15,7 +15,6 @@ from telegram.ext import (
 
 from constants import (
     help_response_message,
-    weather_api_response,
     LOGGING_FILENAME,
     LOGGING_FORMAT
 )
@@ -53,12 +52,12 @@ async def get_weather_by_location(
 ):
     try:
         user = update.message.from_user
-        print(user)
+        logger.info(user)
         longitude = update.message.location.longitude
         latitude = update.message.location.latitude
 
-        print(f"Longitude: {longitude}")
-        print(f"Latitude: {latitude}")
+        logger.info(f"Longitude: {longitude}")
+        logger.info(f"Latitude: {latitude}")
 
         user_obj = User(
             first_name=user.first_name,
@@ -72,8 +71,9 @@ async def get_weather_by_location(
             longitude=longitude
         )
 
-        weatherAPI_message = weather_api_response.format(**weatherAPI.__dict__)
-        await update.message.reply_text(weatherAPI_message)
+        await update.message.reply_text(
+            weatherAPI.gen_weather_message()
+        )
 
         location_message = f"Latitude: {latitude}\n"
         location_message += f"Longitude: {longitude}\n"

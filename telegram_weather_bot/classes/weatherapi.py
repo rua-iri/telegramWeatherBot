@@ -1,7 +1,10 @@
 from .base_api import Base_API
 
 import os
-import constants
+from constants import (
+    WEATHER_API_BASE_URL,
+    weather_api_response
+)
 
 
 class WeatherAPI(Base_API):
@@ -27,11 +30,13 @@ class WeatherAPI(Base_API):
         self.temperature = current_data.get('temp_c')
         self.feels_like = current_data.get('feelslike_c')
 
+        print(self.__dict__)
+
     def fetch_api_data(self, latitude: float, longitude: float):
         try:
             API_KEY_WEATHERAPI = os.getenv("API_KEY_WEATHERAPI")
 
-            req_url = constants.WEATHER_API_BASE_URL
+            req_url = WEATHER_API_BASE_URL
             req_url += f"?q={latitude},{longitude}"
             req_url += f"&key={API_KEY_WEATHERAPI}"
 
@@ -39,6 +44,10 @@ class WeatherAPI(Base_API):
 
         except Exception as e:
             raise e
+
+    def gen_weather_message(self) -> str:
+
+        return weather_api_response.format(**self.__dict__)
 
     def __repr__(self) -> str:
         return f"""
