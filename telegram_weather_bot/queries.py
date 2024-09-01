@@ -12,4 +12,19 @@ AND dates.date=?;
 """
 
 
+INSERT_USER = """
+INSERT OR IGNORE
+INTO users
+(name, username, telegram_id)
+VALUES
+(?, ?, ?);
+"""
 
+
+INSERT_DATE = """
+INSERT OR IGNORE
+INTO date
+(date)
+VALUES
+(?);
+"""
