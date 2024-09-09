@@ -1,5 +1,6 @@
-from importlib import resources
-import time
+
+from datetime import datetime
+
 from sqlalchemy import (
     Column,
     Integer,
@@ -7,10 +8,8 @@ from sqlalchemy import (
     TIMESTAMP,
     ForeignKey,
     Table,
-    create_engine
 )
-from sqlalchemy.orm import relationship, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, declarative_base
 
 Base = declarative_base()
 
@@ -18,10 +17,9 @@ Base = declarative_base()
 user_date = Table(
     "user_date",
     Base.metadata,
-    Column("Timestamp", TIMESTAMP),
+    Column("Timestamp", TIMESTAMP, default=datetime.now()),
     Column("user_id", Integer, ForeignKey("user.user_id")),
     Column("date_id", Integer, ForeignKey("date.date_id"))
-
 )
 
 
@@ -43,35 +41,3 @@ class Date(Base):
     users = relationship(
         "User", secondary=user_date, back_populates="dates"
     )
-
-
-def main():
-    with resources.path("data", "database.db") as filepath:
-        engine = create_engine(f"sqlite:///{filepath}")
-
-    Session = sessionmaker()
-    Session.configure(bind=engine)
-    session = Session()
-
-    Base.metadata.create_all(engine)
-
-    current_time = int(time.time())
-    user = User(
-        name="Test Name",
-        username=f"testusername_{current_time}",
-        external_id=f"123_{current_time}"
-    )
-    date = Date(datestring=f"{current_time}")
-
-    user.dates.append(date)
-    date.users.append(user)
-    
-    print('adding user')
-    session.add(user)
-    session.add(date)
-
-    print('committing')
-    session.commit()
-
-
-main()
