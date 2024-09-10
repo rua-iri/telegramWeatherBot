@@ -1,6 +1,5 @@
 # telegramWeatherBot
 
-
 <div align="center">
   <div>
     A bot for obtaining short term weather reports from multiple sources
@@ -11,3 +10,40 @@
   </div>
 </div>
 
+
+
+## Setup
+
+
+```bash
+git clone https://github.com/rua-iri/telegramWeatherBot.git
+
+cd telegramWeatherBot
+
+python3 -m venv .venv
+
+source .venv
+
+pip3 install -r requirements.txt
+
+mkdir telegram_weather_bot/data
+
+touch .env
+
+```
+
+
+Add the the Telegram Bot token and any required api keys for the weather
+
+```
+TOKEN=<telegram_token_here>
+
+API_KEY=<api_key_here>
+```
+
+
+Then start the bot
+
+```
+python3 telegram_weather_bot/main.py
+```
