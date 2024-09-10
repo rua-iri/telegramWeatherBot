@@ -1,5 +1,6 @@
 
 from datetime import datetime
+from importlib import resources
 
 from sqlalchemy import (
     Column,
@@ -8,8 +9,9 @@ from sqlalchemy import (
     TIMESTAMP,
     ForeignKey,
     Table,
+    create_engine,
 )
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy.orm import relationship, declarative_base, sessionmaker
 
 Base = declarative_base()
 
@@ -41,3 +43,15 @@ class Date(Base):
     users = relationship(
         "User", secondary=user_date, back_populates="dates"
     )
+
+
+with resources.path("data", "database.db") as filepath:
+    engine = create_engine(f"sqlite:///{filepath}")
+
+Session = sessionmaker()
+Session.configure(bind=engine)
+session = Session()
+
+Base.metadata.create_all(engine)
+session.commit()
+session.close()
