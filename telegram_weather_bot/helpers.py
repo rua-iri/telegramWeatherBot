@@ -1,10 +1,8 @@
 
 from datetime import datetime
 from importlib import resources
-import time
 import dotenv
 
-from constants import DB_NAME
 from models import Date, User
 
 from sqlalchemy import create_engine

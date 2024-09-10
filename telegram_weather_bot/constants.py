@@ -2,8 +2,6 @@
 LOGGING_FORMAT = "[%(asctime)s] [%(levelname)s] - %(message)s"
 LOGGING_FILENAME = "logs/{filename}.log"
 
-DB_NAME = "weather_bot.db"
-
 WEATHER_API_BASE_URL = "https://api.weatherapi.com/v1/current.json"
 
 HELP_RESPONSE_MESSAGE = """
