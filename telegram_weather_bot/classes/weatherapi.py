@@ -1,9 +1,7 @@
 from .base_api import Base_API
 
 import os
-from constants import (
-    WEATHER_API_BASE_URL,
-)
+from constants import WEATHER_API_BASE_URL
 
 
 class WeatherAPI(Base_API):
@@ -35,11 +33,11 @@ class WeatherAPI(Base_API):
         try:
             API_KEY_WEATHERAPI = os.getenv("API_KEY_WEATHERAPI")
 
-            req_url = WEATHER_API_BASE_URL
-            req_url += f"?q={latitude},{longitude}"
-            req_url += f"&key={API_KEY_WEATHERAPI}"
+            request_url = WEATHER_API_BASE_URL
+            request_url += f"?q={latitude},{longitude}"
+            request_url += f"&key={API_KEY_WEATHERAPI}"
 
-            return super().make_api_call(url=req_url)
+            return super().make_api_call(url=request_url)
 
         except Exception as e:
             raise e
