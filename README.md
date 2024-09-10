@@ -6,7 +6,7 @@
   </div>
   <br/>
   <div>
-    <img src="https://github.com/rua-iri/telegramWeatherBot/assets/117874491/358d0708-1ff9-4aed-a723-c9c465654a71" alt="telegramWeatherBot logo" width="35%" />
+    <img src="https://github.com/rua-iri/telegramWeatherBot/assets/117874491/358d0708-1ff9-4aed-a723-c9c465654a71" alt="telegramWeatherBot logo" width="35%" style="border-radius: 15%" />
   </div>
 </div>
 
