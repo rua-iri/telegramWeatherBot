@@ -5,10 +5,9 @@ import time
 import dotenv
 
 from constants import DB_NAME
-# from classes.user import User
-from models import Date, User, user_date
+from models import Date, User
 
-from sqlalchemy import Date, create_engine
+from sqlalchemy import create_engine
 from sqlalchemy.orm import (
     sessionmaker,
     declarative_base
@@ -49,7 +48,8 @@ def add_user(user_data: dict) -> User:
 
 def add_date(datestring: str) -> Date:
     existing_date = session.query(Date).filter_by(
-        datestring=datestring).first()
+        datestring=datestring
+    ).first()
 
     if not existing_date:
         new_date = Date(datestring=datestring)
@@ -67,12 +67,13 @@ def add_user_date(user_data, datestring):
         session.commit()
 
 
-def check_user_valid(user_data: User) -> bool:
-    datestring = "1/2/3"
+def check_is_user_valid(user_data: User) -> bool:
+    today_datestring = datetime.strftime(datetime.now(), "%d/%m/%Y")
+
     exists_query = (
         session.query(User)
         .join(Date, User.dates)
-        .filter(Date.datestring == datestring)
+        .filter(Date.datestring == today_datestring)
         .filter(User.external_id == user_data['external_id'])
     ).first()
 
@@ -80,16 +81,21 @@ def check_user_valid(user_data: User) -> bool:
 
     if not exists_query:
         print("not exists")
-        add_user_date(user_data=user_data, datestring=datestring)
+        add_user_date(user_data=user_data, datestring=today_datestring)
+        return True
+
+    else:
+        print("User Exists")
+        return False
 
 
 def main():
     print("starting main")
-    user_data = {'username': 'test_user3',
-                 'name': 'test name3', 'external_id': '1234'}
+    user_data = {'username': 'test_user_new',
+                 'name': 'test name_new', 'external_id': '5678'}
 
     # add_user_date(user_data=user_data, datestring=datestring)
-    check_user_valid(user_data=user_data)
+    check_is_user_valid(user_data=user_data)
 
 
 main()

@@ -19,7 +19,7 @@ from constants import (
     LOGGING_FORMAT
 )
 from classes.weatherapi import WeatherAPI
-from classes.user import User
+from helpers import check_is_user_valid
 
 
 dotenv.load_dotenv()
@@ -59,12 +59,14 @@ async def get_weather_by_location(
         logger.info(f"Longitude: {longitude}")
         logger.info(f"Latitude: {latitude}")
 
-        user_obj = User(
-            first_name=user.first_name,
-            last_name=user.last_name,
-            id=user.id,
-            username=user.username
-        )
+        user_dict = {
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "id": user.id,
+            "username": user.username
+        }
+
+        is_user_valid = check_is_user_valid(user_data=user_dict)
 
         weatherAPI: WeatherAPI = WeatherAPI(
             latitude=latitude,
