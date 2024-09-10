@@ -2,7 +2,6 @@
 import logging
 import os
 import time
-import typing
 import dotenv
 from telegram import Update
 from telegram.ext import (
@@ -14,16 +13,17 @@ from telegram.ext import (
 )
 
 from constants import (
-    help_response_message,
+    HELP_RESPONSE_MESSAGE,
     LOGGING_FILENAME,
-    LOGGING_FORMAT
+    LOGGING_FORMAT,
+    USER_REQUEST_LIMIT_MESSAGE
 )
 from classes.weatherapi import WeatherAPI
 from helpers import check_is_user_valid
 
 
 dotenv.load_dotenv()
-TOKEN: typing.Final = os.getenv("TOKEN")
+TOKEN = os.getenv("TOKEN")
 
 LOGGING_FILENAME = LOGGING_FILENAME.format(
     filename=time.strftime("%Y/%m/%d")
@@ -43,7 +43,7 @@ logging.basicConfig(
 
 
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_html(help_response_message)
+    await update.message.reply_html(HELP_RESPONSE_MESSAGE)
 
 
 async def get_weather_by_location(
@@ -60,26 +60,29 @@ async def get_weather_by_location(
         logger.info(f"Latitude: {latitude}")
 
         user_dict = {
-            "first_name": user.first_name,
-            "last_name": user.last_name,
-            "id": user.id,
-            "username": user.username
+            "name": user.full_name,
+            "username": user.name,
+            "external_id": user.id,
         }
 
         is_user_valid = check_is_user_valid(user_data=user_dict)
 
-        weatherAPI: WeatherAPI = WeatherAPI(
-            latitude=latitude,
-            longitude=longitude
-        )
+        if is_user_valid:
+            weatherAPI: WeatherAPI = WeatherAPI(
+                latitude=latitude,
+                longitude=longitude
+            )
 
-        await update.message.reply_text(
-            weatherAPI.gen_weather_message()
-        )
+            await update.message.reply_text(
+                weatherAPI.gen_weather_message()
+            )
 
-        location_message = f"Latitude: {latitude}\n"
-        location_message += f"Longitude: {longitude}\n"
-        await update.message.reply_text(location_message)
+            location_message = f"Latitude: {latitude}\n"
+            location_message += f"Longitude: {longitude}\n"
+            await update.message.reply_text(location_message)
+
+        else:
+            await update.message.reply_text(USER_REQUEST_LIMIT_MESSAGE)
 
     except Exception as e:
         logger.error(e)

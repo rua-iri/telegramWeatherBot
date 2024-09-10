@@ -3,7 +3,6 @@ from .base_api import Base_API
 import os
 from constants import (
     WEATHER_API_BASE_URL,
-    weather_api_response
 )
 
 
@@ -47,7 +46,15 @@ class WeatherAPI(Base_API):
 
     def gen_weather_message(self) -> str:
 
-        return weather_api_response.format(**self.__dict__)
+        return """
+            WeatherAPI
+            Location: {location}
+            Conditions: {condition_text}
+            Temperature: {temperature}°C (Feels Like: {feels_like}°C)
+            Wind: {wind}
+            Humidity: {humidity}%
+            Precipitation: {precipitation}
+            """.format(**self.__dict__)
 
     def __repr__(self) -> str:
         return f"""

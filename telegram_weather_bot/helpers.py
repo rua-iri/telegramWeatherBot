@@ -80,22 +80,10 @@ def check_is_user_valid(user_data: User) -> bool:
     print(exists_query)
 
     if not exists_query:
-        print("not exists")
+        print("User-Date not exists")
         add_user_date(user_data=user_data, datestring=today_datestring)
         return True
 
     else:
-        print("User Exists")
+        print("User-Date Exists")
         return False
-
-
-def main():
-    print("starting main")
-    user_data = {'username': 'test_user_new',
-                 'name': 'test name_new', 'external_id': '5678'}
-
-    # add_user_date(user_data=user_data, datestring=datestring)
-    check_is_user_valid(user_data=user_data)
-
-
-main()
