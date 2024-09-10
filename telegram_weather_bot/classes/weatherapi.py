@@ -47,14 +47,14 @@ class WeatherAPI(Base_API):
     def gen_weather_message(self) -> str:
 
         return """
-            WeatherAPI
-            Location: {location}
-            Conditions: {condition_text}
-            Temperature: {temperature}°C (Feels Like: {feels_like}°C)
-            Wind: {wind}
-            Humidity: {humidity}%
-            Precipitation: {precipitation}
-            """.format(**self.__dict__)
+        WeatherAPI
+        Location: {location}
+        Conditions: {condition_text}
+        Temperature: {temperature}°C (Feels Like: {feels_like}°C)
+        Wind: {wind}
+        Humidity: {humidity}%
+        Precipitation: {precipitation}
+        """.format(**self.__dict__)
 
     def __repr__(self) -> str:
         return f"""
