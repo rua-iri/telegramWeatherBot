@@ -13,10 +13,11 @@ from telegram.ext import (
 )
 
 from constants import (
-    HELP_RESPONSE_MESSAGE,
     LOGGING_FILENAME,
     LOGGING_FORMAT,
-    USER_REQUEST_LIMIT_MESSAGE
+    USER_REQUEST_LIMIT_MESSAGE,
+    HELP_RESPONSE_MESSAGE,
+    INTERNAL_SERVER_ERROR_MESSAGE,
 )
 from classes.weatherapi import WeatherAPI
 from helpers import check_is_user_valid
@@ -86,7 +87,7 @@ async def get_weather_by_location(
 
     except Exception as e:
         logger.error(e)
-        await update.message.reply_text("Error: something went wrong")
+        await update.message.reply_text(INTERNAL_SERVER_ERROR_MESSAGE)
 
 
 # TODO just for testing, remove this eventually

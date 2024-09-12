@@ -1,7 +1,8 @@
+
 from .base_api import Base_API
+from constants import OPEN_WEATHER_MAP_BASE_URL
 
 import os
-from constants import OPEN_WEATHER_MAP_BASE_URL
 
 
 class OpenWeatherMapAPI(Base_API):
@@ -19,8 +20,16 @@ class OpenWeatherMapAPI(Base_API):
 
         self.humidity = main_data.get('humidity')
 
-        self.condition_text = f"{weather_data.get('main')} - {weather_data.get('description')}"
-        self.condition_icon = f"https://openweathermap.org/img/wn/{weather_data.get('icon')}@2x.png"
+        self.condition_text = (
+            weather_data.get('main')
+            + " - "
+            + weather_data.get('description')
+        )
+        self.condition_icon = (
+            "https://openweathermap.org/img/wn/"
+            + weather_data.get('icon')
+            + "@2x.png"
+        )
 
         self.temperature = main_data.get('temp')
         self.feels_like = main_data.get('feels_like')
