@@ -48,7 +48,7 @@ class WeatherAPI(Base_API):
         WeatherAPI
         Location: {location}
         Conditions: {condition_text}
-        Temperature: {temperature}°C (Feels Like: {feels_like}°C)
+        Temperature: {temperature}℃ (Feels Like: {feels_like}℃)
         Wind: {wind}
         Humidity: {humidity}%
         Precipitation: {precipitation}

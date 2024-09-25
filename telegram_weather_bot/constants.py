@@ -7,7 +7,7 @@ WEATHER_API_BASE_URL = "https://api.weatherapi.com/v1/current.json"
 OPEN_WEATHER_MAP_BASE_URL = "https://api.openweathermap.org/data/2.5/weather?lat={LAT}&lon={LON}&units=metric&appid={API_KEY}"
 
 ACCUWEATHER_GEO_BASE_URL = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey={API_KEY}&q={LAT},{LON}"
-ACCUWEATHER_HOUR_BASE_URL = "http://dataservice.accuweather.com/forecasts/v1/hourly/1hour/{locationKey}"
+ACCUWEATHER_DAY_BASE_URL = "http://dataservice.accuweather.com/forecasts/v1/daily/1day/{LOCATION_KEY}?apikey={API_KEY}&metric=true"
 
 
 HELP_RESPONSE_MESSAGE = """

@@ -62,7 +62,7 @@ class OpenWeatherMapAPI(Base_API):
         Open Weather
         Location: {location}
         Condition: {condition_text}
-        Temperature: {temperature}°C (Feels Like: {feels_like}°C)
+        Temperature: {temperature}℃ (Feels Like: {feels_like}℃)
         Wind: {wind}
         Humidity: {humidity}
         """.format(**self.__dict__)
